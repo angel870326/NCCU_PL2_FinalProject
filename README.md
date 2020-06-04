@@ -4,6 +4,12 @@ NCCU Programming Language 2 (JAVA) - Final Project: Course Registration Guide（
 
 ## Schedule Setup
 
+View
+
 ![image](https://drive.google.com/uc?export=view&id=1nxAaIBnziWwe6tUQnh46-iDDIsGuBkyM)
+
+
+Explanation
+
 <img src="https://drive.google.com/uc?export=view&id=1dcgUuEHIQrIOxyiAsEiBn6aTqr2-2Iza">
 
