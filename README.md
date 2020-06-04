@@ -10,4 +10,4 @@ NCCU Programming Language 2 (JAVA) - Final Project: Course Registration Guide（
 
 
 
-<img src="https://drive.google.com/uc?export=view&id=1V5Fg6IJ3aNXoXOoUDUF-_l2r-dykmCkp" width="800">
+<img src="https://drive.google.com/uc?export=view&id=1V5Fg6IJ3aNXoXOoUDUF-_l2r-dykmCkp" width="200">
