@@ -4,5 +4,5 @@ NCCU Programming Language 2 (JAVA) - Final Project: Course Registration Guide（
 
 ## Schedule Setup
 
-![image](https://drive.google.com/file/d/1KyShRULGgiFt4kGtYsIAKdkb1Yya4bbV/view?usp=sharing)
+![image](https://drive.google.com/uc?export=view&id=1KyShRULGgiFt4kGtYsIAKdkb1Yya4bbV)
 
