@@ -6,14 +6,12 @@ public class ScheduledTimeList {
 	private String day;
 	private String fromTime;
 	private String endTime;
-//	private ArrayList<String> scheduledTimeList;
 	
 	public ScheduledTimeList(String courseName) {
 		this.courseName = courseName;
 		this.day = null;
 		this.fromTime = null;
 		this.endTime = null;
-//		this.scheduledTimeList = new ArrayList<String>();
 
 	}
 

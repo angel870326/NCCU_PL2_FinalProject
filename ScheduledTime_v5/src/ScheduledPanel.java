@@ -28,9 +28,9 @@ import java.sql.Statement;
 public class ScheduledPanel extends JPanel{
 	
 	// Color
-	private static final Color title = Color.decode("#E5CDFD");  // #CDFDFD
-	private static final Color background = Color.decode("#7C5DB3");  // #30217A
-	private static final Color inner = Color.decode("#F4EAFD");  // #E3FEFE
+	private static final Color TITLE = Color.decode("#E5CDFD");  // #CDFDFD
+	private static final Color BACKGROUND = Color.decode("#7C5DB3");  // #30217A
+	private static final Color INNER = Color.decode("#F4EAFD");  // #E3FEFE
 	
 	// Image
 	private ImageIcon icon;
@@ -46,7 +46,7 @@ public class ScheduledPanel extends JPanel{
 	private JTextField addCourseField ;
 	private JButton addCourseBtn;
 	private JPanel coursePanel;
-	private ArrayList<String> planToTakeList;	// courseID
+	private ArrayList<String> planToTakeList;		// courseID
 	private ArrayList<String> planToTakeNameList;	// courseName
 	private ArrayList<JButton> courseBtnList;
 
@@ -63,9 +63,9 @@ public class ScheduledPanel extends JPanel{
 	private JButton saveOther;
 	private JButton resetOther;
 	private int listMaxSize;
-	private ArrayList<ScheduledTimeList> otherPlanLists;	// 本學期其他事情的 list
-	private ArrayList<ScheduledTimeList> otherPlanListsChanged;	// 本學期其他事情的 list
-	private ArrayList<OtherPlan> otherPlan;	// 本學期其他事情的 list
+	private ArrayList<ScheduledTimeList> otherPlanLists;			// 本學期其他事情的 list
+	private ArrayList<ScheduledTimeList> otherPlanListsChanged;		// 本學期其他事情的 list，時間轉代號
+	private ArrayList<OtherPlan> otherPlan;							// 本學期其他事情的 list，完整版
 	private ArrayList<String> timeID;
 	private ArrayList<JCheckBox> checkboxList;
 	private ArrayList<String> checkboxNameList;
@@ -152,7 +152,7 @@ public class ScheduledPanel extends JPanel{
 		plantoTakePanel = new JPanel();
 		plantoTakePanel.setPreferredSize(new Dimension(800, 220));
 		plantoTakePanel.setLayout(new BorderLayout());
-		plantoTakePanel.setBorder(BorderFactory.createMatteBorder(5, 10, 5, 10, background));
+		plantoTakePanel.setBorder(BorderFactory.createMatteBorder(5, 10, 5, 10, BACKGROUND));
 
 		// title panel
 		plantoTakeTitlePanel = new JPanel();
@@ -232,7 +232,7 @@ public class ScheduledPanel extends JPanel{
 					}									
 				}
 				catch(SQLException e) {
-					JOptionPane.showMessageDialog(null, "本學期沒有開設這門課");	
+					JOptionPane.showMessageDialog(null, "無法選擇該門課程");	
 					System.out.println("Add Course Error!");
 				}
 				finally{
@@ -254,11 +254,13 @@ public class ScheduledPanel extends JPanel{
 		arrange(saveResetPanel, "Inner");
 		JButton save = new JButton("Save");
 		JButton reset = new JButton("Reset");
+		reset.setEnabled(false);
 
 		// save
 		class SaveListener implements ActionListener {
 			public void actionPerformed(ActionEvent event) {
 				save.setEnabled(false);
+				reset.setEnabled(true);
 				coursePanel.setEnabled(false);
 				addCoursePanel.setEnabled(false);
 				addCourseField.setEnabled(false);
@@ -268,7 +270,7 @@ public class ScheduledPanel extends JPanel{
 				}
 				
 				saveOther.setEnabled(true);
-				resetOther.setEnabled(true);
+				resetOther.setEnabled(false);
 				checkBoxPanel.setEnabled(true);
 				addOtherPanel.setEnabled(true);
 				addOtherTextField.setEnabled(true);
@@ -290,17 +292,19 @@ public class ScheduledPanel extends JPanel{
 		
 		// reset
 		class ResetListener implements ActionListener {
-			public void actionPerformed(ActionEvent event) {
+			public void actionPerformed(ActionEvent event) {			
 				save.setEnabled(true);
+				reset.setEnabled(false);
 				coursePanel.setEnabled(true);
 				addCoursePanel.setEnabled(true);
 				addCourseField.setEnabled(true);
 				addCourseBtn.setEnabled(true);
 				addCourseField.setText(null);;
 				planToTakeList.clear();
+				planToTakeNameList.clear();
 				courseBtnList.clear();
 				coursePanel.removeAll();
-				
+								
 				saveOther.setEnabled(false);
 				resetOther.setEnabled(false);
 				checkBoxPanel.setEnabled(false);
@@ -337,7 +341,7 @@ public class ScheduledPanel extends JPanel{
 		otherPlanPanel = new JPanel();
 		otherPlanPanel.setPreferredSize(new Dimension(800,455));
 		otherPlanPanel.setLayout(new BorderLayout());
-		otherPlanPanel.setBorder(BorderFactory.createMatteBorder(0, 10, 0, 10, background));
+		otherPlanPanel.setBorder(BorderFactory.createMatteBorder(0, 10, 0, 10, BACKGROUND));
 		
 		// title panel
 		otherPlanTitlePanel = new JPanel();	
@@ -558,6 +562,9 @@ public class ScheduledPanel extends JPanel{
 		JPanel saveResetPanel = new JPanel();
 		arrange(saveResetPanel, "Inner");
 		saveOther = new JButton("Save");
+		resetOther = new JButton("Reset");
+		resetOther.setEnabled(false);
+		
 		class SaveListener implements ActionListener {
 			public void actionPerformed(ActionEvent event) {
 				// save
@@ -571,6 +578,7 @@ public class ScheduledPanel extends JPanel{
 				}
 				if(!error) {
 					saveOther.setEnabled(false);
+					resetOther.setEnabled(true);
 					checkBoxPanel.setEnabled(false);
 					addOtherPanel.setEnabled(false);
 					addOtherTextField.setEnabled(false);
@@ -598,10 +606,10 @@ public class ScheduledPanel extends JPanel{
 		}
 		saveOther.addActionListener(new SaveListener());
 		
-		resetOther = new JButton("Reset");
 		class ResetListener implements ActionListener {
 			public void actionPerformed(ActionEvent event) {
 				saveOther.setEnabled(true);
+				resetOther.setEnabled(false);
 				checkBoxPanel.setEnabled(true);
 				addOtherPanel.setEnabled(true);
 				addOtherTextField.setEnabled(true);
@@ -735,8 +743,7 @@ public class ScheduledPanel extends JPanel{
 		
 	}
 	
-	
-	// 把 一C二C三C 這種切開來
+	// 分解 subTime to courseTimeList
 	private ArrayList<String> findTime(String courseTime) {
 		ArrayList<Integer> dayIndexList = new ArrayList<Integer>();
 		ArrayList<String> courseTimeList = new ArrayList<String>();
@@ -755,9 +762,20 @@ public class ScheduledPanel extends JPanel{
 			}
 			courseTimeList.add(time);
 		}
-		return courseTimeList;
+		return courseTimeList;		
 	}
-
+	
+	// 從 Course1082_user 找出特定星期
+	private String matchDay(ArrayList<String> courseTimeList, String day) {
+		String matchDay = null;
+		for(int i = 0; i < courseTimeList.size(); i++) {
+			if(courseTimeList.get(i).contains(day)) {
+				matchDay = courseTimeList.get(i);
+			}
+		}
+		return matchDay;
+	}
+	
 	
 	// Next Page Panel
 	private JPanel createNextPagePanel() {
@@ -821,27 +839,29 @@ public class ScheduledPanel extends JPanel{
 							ArrayList<String> planToTakeDayTimeList= findTime(courseTime);
 							for(int p = 0; p < planToTakeDayTimeList.size(); p++) {
 								String planToTakeDayTime = planToTakeDayTimeList.get(p);
-								String sql_dayContained = String.format("SELECT * FROM Course1082_user WHERE subTime LIKE '%s'",  "%" + planToTakeDayTime.substring(0, 1) + "%");
+								String planToTakeDay = planToTakeDayTime.substring(0, 1);
+								String planToTakeTime = planToTakeDayTime.substring(1);
+								String sql_dayContained = String.format("SELECT * FROM Course1082_user WHERE subTime LIKE '%s'",  "%" + planToTakeDay + "%");
 								ResultSet dayContained = doSql(sql_dayContained, "executeQuery");
-								dayContained.next();
 								while(dayContained.next()) {
-									String dayTime = dayContained.getString("subTime");
-									for(int j = 0; j < findTime(dayTime).size(); j++) {
-										if(findTime(dayTime).get(j).contains(planToTakeDayTime.substring(0, 1))) {
-											for(int k = 1; k < planToTakeDayTime.length(); k++) {
-												if(findTime(dayTime).get(j).contains(planToTakeDayTime.substring(k - 1, k))) {
-													String courseID = dayContained.getString("subNum");
-													courseToDelete.add(courseID);
-												}
+									String courseID = dayContained.getString("subNum");
+									String dayTime = dayContained.getString("subTime");									
+									String courseDayMatch = matchDay(findTime(dayTime), planToTakeDay);
+									String courseDayMatchTime = courseDayMatch.substring(1);									
+									for(int j = 0; j < planToTakeTime.length(); j++) {
+										for(int k = 0; k < courseDayMatchTime.length(); k++) {
+											if(courseDayMatchTime.charAt(k) == planToTakeTime.charAt(j)) {
+												courseToDelete.add(courseID);
+//												System.out.println("Delete: " + dayTime);
 											}
-										}
+										}										
 									}
 								}								
 							}
 							if(courseToDelete.size() > 0) {
 								String sql_subTime = String.format("DELETE FROM Course1082_user WHERE subNum = '%s'", courseToDelete.get(0));
 								for(int j = 1; j < courseToDelete.size(); j++) {
-									sql_subTime = sql_subTime + String.format(" OR subNum = '%s'", "%" + courseToDelete.get(i));
+									sql_subTime = sql_subTime + String.format(" OR subNum = '%s'", courseToDelete.get(j));
 								}
 								doSql(sql_subTime, "execute");
 								System.out.println("＊更新 Course1082_user from PlanToTake＊");
@@ -858,36 +878,38 @@ public class ScheduledPanel extends JPanel{
 				if(otherPlan.size() > 0) {
 					for(int i = 0; i < otherPlan.size(); i++) {
 						ArrayList<String> courseToDelete = new ArrayList<String>();
+						String otherPlanDay = otherPlan.get(i).getDay();
+						String otherPlanTime = otherPlan.get(i).getTime();
 						try {
 							String sql_dayContained = String.format("SELECT * FROM Course1082_user WHERE subTime LIKE '%s'",  "%" + otherPlan.get(i).getDay() + "%");
 							ResultSet dayContained = doSql(sql_dayContained, "executeQuery");
-							dayContained.next();
 							while(dayContained.next()) {
+								String courseID = dayContained.getString("subNum");
 								String dayTime = dayContained.getString("subTime");
-								for(int j = 0; j < findTime(dayTime).size(); j++) {
-									if(findTime(dayTime).get(j).contains(otherPlan.get(i).getDay())) {
-										for(int k = 1; k < otherPlan.get(i).getTime().length(); k++) {
-											if(findTime(dayTime).get(j).contains(otherPlan.get(i).getTime().substring(k - 1, k))) {
-												String courseID = dayContained.getString("subNum");
-												courseToDelete.add(courseID);
-											}
-										}										
-									}
-								}																
+								String courseDayMatch = matchDay(findTime(dayTime), otherPlanDay);
+								String courseDayMatchTime = courseDayMatch.substring(1);
+								for(int j = 0; j < otherPlanTime.length(); j++) {
+									for(int k = 0; k < courseDayMatchTime.length(); k++) {
+										if(courseDayMatchTime.charAt(k) == otherPlanTime.charAt(j)) {
+											courseToDelete.add(courseID);
+//											System.out.println("Delete: " + dayTime);
+										}
+									}										
+								}
+							}
+							if(courseToDelete.size() > 0) {
+								String sql_subTime = String.format("DELETE FROM Course1082_user WHERE subNum = '%s'", courseToDelete.get(0));
+								for(int j = 1; j < courseToDelete.size(); j++) {
+									sql_subTime = sql_subTime + String.format(" OR subNum = '%s'", courseToDelete.get(j));
+								}
+								doSql(sql_subTime, "execute");
+								System.out.println("＊更新 Course1082_user from OtherPlan＊");
 							}
 						}
 						catch(Exception e) {
 							System.out.println("Error: Delete Course1082_user from otherPlan");
 							e.printStackTrace();
 						}	
-						if(courseToDelete.size() > 0) {
-							String sql_subTime = String.format("DELETE FROM Course1082_user WHERE subNum = '%s'", courseToDelete.get(0));
-							for(int j = 1; j < courseToDelete.size(); j++) {
-								sql_subTime = sql_subTime + String.format(" OR subNum = '%s'", "%" + courseToDelete.get(i));
-							}
-							doSql(sql_subTime, "execute");
-							System.out.println("＊更新 Course1082_user from OtherPlan＊");
-						}
 					}				
 				}
 				
@@ -912,16 +934,16 @@ public class ScheduledPanel extends JPanel{
 
 	public void arrange(JPanel panel, String type) {
 		if(type.equals("Title")) {
-			panel.setBackground(title);
+			panel.setBackground(TITLE);
 		}
 		else if(type.equals("Main")) {
 			panel.setBorder(BorderFactory.createLineBorder(Color.white, 5, true));
 		}
 		else if(type.equals("Inner")) {
-			panel.setBackground(inner);
+			panel.setBackground(INNER);
 		}
 		else if(type.equals("Background")) {
-			panel.setBackground(background);
+			panel.setBackground(BACKGROUND);
 		}
 	}
 	
