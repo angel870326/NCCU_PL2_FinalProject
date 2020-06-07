@@ -100,7 +100,7 @@ public class FinishedCoursePanel extends JPanel {
 				HomeFrame homeFrame = getFrame();
 				homeFrame.add(new ScheduledPanel());
 				homeFrame.setSize(820, 805);
-				homeFrame.setTitle("Class Scheduler - ScheduleSetup");
+				homeFrame.setTitle("Course Registration Guide - Schedule Setup");
 				homeFrame.setLocationRelativeTo(null);
 				
 			}
@@ -717,7 +717,7 @@ public class FinishedCoursePanel extends JPanel {
 
 	private HomeFrame getFrame() {
 		for(Frame frame:JFrame.getFrames()) {
-			if(frame.getTitle().equals("Course Registration Guide - FinishedCourse")) {
+			if(frame.getTitle().equals("Course Registration Guide - Finished Course")) {
 				HomeFrame homeFrame = (HomeFrame) frame;
 				return homeFrame;
 			}

@@ -128,7 +128,7 @@ public class RegisterPanel extends JPanel{
 					HomeFrame homeFrame = getFrame();
 					homeFrame.add(new FinishedCoursePanel(studentID, majorArray));
 					homeFrame.setSize(820, 820);
-					homeFrame.setTitle("Course Registration Guide - FinishedCourse");
+					homeFrame.setTitle("Course Registration Guide - Finished Course");
 					homeFrame.setLocationRelativeTo(null);
 				}else {
 					JOptionPane.showMessageDialog(null, errorOrNot);
