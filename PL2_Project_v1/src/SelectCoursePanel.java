@@ -433,7 +433,7 @@ public class SelectCoursePanel extends JPanel{
 		ArrayList<String> courseTimeList1=checkTime(lecture1.getLectureTime());
 		ArrayList<String> courseTimeList2=checkTime(lecture2.getLectureTime());
 		for(int i=0;i<courseTimeList1.size();i++) {
-			for(int j=0;i<courseTimeList2.size();i++) {
+			for(int j=0;j<courseTimeList2.size();j++) {
 				if(courseTimeList1.get(i).charAt(0)==courseTimeList2.get(j).charAt(0)) {
 					for(int ii=1;ii<courseTimeList1.get(i).length();ii++) {
 						for(int jj=1;jj<courseTimeList2.get(j).length();jj++) {
