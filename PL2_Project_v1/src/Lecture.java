@@ -46,6 +46,10 @@ public class Lecture {
 	}
 
 	public String getLectureClassRoom() {
+		if (lectureClassRoom.equals(""))
+		{
+			return "NA";
+		}
 		return lectureClassRoom;
 	}
 
