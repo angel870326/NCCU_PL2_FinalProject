@@ -605,7 +605,7 @@ public class FinalSchedulePanel extends JPanel{
 		courseInfoArea.setLineWrap(true);
 		
 		courseInfoArea.setBackground(textAreaColor);
-		courseInfoArea.setForeground(Color.white);
+		courseInfoArea.setForeground(Color.decode("#454545"));
 		JScrollPane pane =new JScrollPane(courseInfoArea);
 		subPanel.add(pane);
 		subPanel.setBackground(textAreaColor);
