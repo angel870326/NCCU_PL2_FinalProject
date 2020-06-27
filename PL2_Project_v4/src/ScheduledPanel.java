@@ -121,7 +121,8 @@ public class ScheduledPanel extends JPanel{
 		titlePanel.setLayout(new FlowLayout());
 		titlePanel.setPreferredSize(new Dimension(800,55));
 		arrange(titlePanel, "Background");
-		icon = new ImageIcon("img/schedule.png", "Schedule");	
+//		icon = new ImageIcon("img/schedule.png", "Schedule");	
+		icon = new ImageIcon(getClass().getResource("img/schedule.png"));	
 		JLabel label = new JLabel(icon);		
 		titlePanel.add(label);
 		return titlePanel;

@@ -698,7 +698,7 @@ public class FinalSchedulePanel extends JPanel{
 	public void screenshot() throws AWTException, IOException
 	{
 		Robot r = new Robot();
-    	String pathString = "img/finalScheduleScreenshot.jpg";
+    	String pathString = "src/img/finalScheduleScreenshot.jpg";
     	BufferedImage screenShot = r.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
     	ImageIO.write(screenShot, "JPG", new File(pathString));
 	}
@@ -736,9 +736,8 @@ public class FinalSchedulePanel extends JPanel{
 			
 			//Attachment body part.
 			MimeBodyPart pdfAttachment = new MimeBodyPart();
-			/* 記得自己改路徑 */
-			pdfAttachment.attachFile("img/finalScheduleScreenshot.jpg");
-			
+			pdfAttachment.attachFile("src/img/finalScheduleScreenshot.jpg");
+
 			//Attach body parts
 			emailContent.addBodyPart(textBodyPart);
 			emailContent.addBodyPart(pdfAttachment);
