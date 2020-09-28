@@ -11,7 +11,7 @@ Demo Video: https://drive.google.com/file/d/1Uj_pKDQxxH9wDWusKzRiSpGMZ3FUzagA/vi
 Wrtten Report(Chinese): https://github.com/angel870326/NCCU_PL2_FinalProject/blob/master/Final%20Report_Group6.pdf
 
 
-## Schedule Setup
+## Schedule Setup Outline
 
 ### View
 
